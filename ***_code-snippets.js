@@ -9,6 +9,7 @@ const last = compose(head, reverse)
 
 
 // semi-secure code
+const log => label => value => console.log(`${label}: ${value}`) || value
 const pipe = fns => x => fns.reduce((v, f) => f(v), x)
 const compose = fns => x => fns.reduceRight((v, f) => f(v), x)
 const filter = f => x => Array.isArray(x) ? x.filter(f) : x
