@@ -50,3 +50,23 @@ const result3 = pipe ([
   reduce ((a, v) => a) ("Start")
 ]) (obj)
 
+// simple version:
+const pluck = defaultValue => fn => data => {
+  try { return fn(data) }
+  catch (e) { return defaultValue }
+}
+
+const result3 = pipe ([
+  pluck ("San Francisco") (x => x.cities[1]),
+  map (x => x.toUpperCase()),
+  filter (x => x === "Berlin"),
+  reduce ((a, v) => a) ("Start")
+]) (obj)
+
+const result4 = pipe ([
+  pluck ("San Francisco") (x => x.cities),
+  map (head),
+  map (x => x.toUpperCase()),
+  filter (x => x === "Berlin"),
+]) (obj)
+
