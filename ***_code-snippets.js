@@ -7,11 +7,16 @@ const head = xs => xs[0]
 const reverse = reduce((a, x) => [x].concat(a), [])
 const last = compose(head, reverse)
 
+
 // semi-secure code
 const pipe = fns => x => fns.reduce((v, f) => f(v), x)
 const filter = f => x => Array.isArray(x) ? x.filter(f) : x
 const map = f => x => Array.isArray(x) ? x.map(f) : Object.prototype.toString.call(x) === "[object String]" ? f(x) : x
 const reduce = f => defaultValue => x => Array.isArray(x) ? x.reduce(f, defaultValue) : x
+const pluck = defaultValue => fn => data => {
+  try { return fn(data) }
+  catch (e) { return defaultValue }
+}
 
 // semi-secure code
 const createValidation = (fn, errorMsg, type) => data => ({
